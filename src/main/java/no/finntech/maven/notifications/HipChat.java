@@ -33,6 +33,10 @@ public final class HipChat extends AbstractMojo {
     @Parameter(property = "hipchat.rooms", required = false)
     private String hipchatRooms;
 
+    /** user name the message is sent from. */
+    @Parameter(property = "hipchat.from", required = false)
+    private String hipchatFrom;
+
     /**
      * hipchat message to send.
      */
@@ -58,7 +62,7 @@ public final class HipChat extends AbstractMojo {
 
         com.github.hipchat.api.HipChat chat = new com.github.hipchat.api.HipChat(hipchatToken);
         for(String room : hipchatRooms.split(",")) {
-            chat.getRoom(room).sendMessage(hipchatMessage, UserId.create("Maven Release", "Maven Release"), true, Message.Color.PURPLE);
+            chat.getRoom(room).sendMessage(hipchatMessage, UserId.create(hipchatFrom, hipchatFrom), true, Message.Color.PURPLE);
         }
     }
 }
