@@ -33,11 +33,12 @@ import org.apache.maven.plugins.annotations.Parameter;
 @Mojo(name = "yammer", threadSafe = true)
 public final class Yammer extends AbstractMojo {
 
+    /** name or id of the yammer group */
     @Parameter(defaultValue = "", property = "yammer.groupId", required = false)
     private String yammerGroupId;
 
     /**
-     * maven-changes-plugin announcement file.
+     * The "announcement" file. Contents are sent as a yammer message.
      */
     @Parameter(
             defaultValue = "${project.build.directory}/announcement/announcement.vm",
@@ -46,15 +47,15 @@ public final class Yammer extends AbstractMojo {
     private File yammerAnnouncement;
 
     /**
-     * The key of the application registered with Yammer. See
-     * http://www.yammer.com/client_applications/new
+     * The key of the application registered with Yammer. 
+     * See http://www.yammer.com/client_applications/new
      */
     @Parameter(property = "yammer.applicationKey", required = true)
     private String yammerApplicationKey;
 
     /**
-     * The secret of the application registered with Yammer. See
-     * http://www.yammer.com/client_applications/new
+     * The secret of the application registered with Yammer. 
+     * See http://www.yammer.com/client_applications/new
      */
     @Parameter(property = "yammer.applicationSecret", required = true)
     private String yammerApplicationSecret;
@@ -66,8 +67,8 @@ public final class Yammer extends AbstractMojo {
     private String artifactId;
 
     /**
-     * The Yammer access token, related to the user, used in getting the access authentication.
-     * See http://www.yammer.com/api_oauth.html
+     * The Yammer access code, needed for using the Yammer API.
+     * see https://developer.yammer.com/authentication/#a-testtoken
      */
     @Parameter(property = "yammer.accessToken", required = true)
     private String yammerAccessToken;

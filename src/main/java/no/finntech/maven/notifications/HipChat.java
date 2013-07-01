@@ -62,6 +62,7 @@ public final class HipChat extends AbstractMojo {
 
         com.github.hipchat.api.HipChat chat = new com.github.hipchat.api.HipChat(hipchatToken);
         for(String room : hipchatRooms.split(",")) {
+            getLog().info("Posting announcement to hipchat (" + room + ')');
             chat.getRoom(room).sendMessage(hipchatMessage, UserId.create(hipchatFrom, hipchatFrom), true, Message.Color.PURPLE);
         }
     }
