@@ -35,12 +35,13 @@
     <dependency>
       <groupId>no.finntech.yammer</groupId>
       <artifactId>yammer-java-sdk</artifactId>
-      <version>0.1-SNAPSHOT</version>
+      <version>0.1</version>
     </dependency>
     <dependency>
         <groupId>com.github.hipchat</groupId>
         <artifactId>jHipchat</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <!-- no release of the project exists yets. 0.0.1-finn-0 is built from https://github.com/michaelsembwever/jHipChat/commit/80c0721 -->
+        <version>0.0.1-finn-0</version>
     </dependency>
   </dependencies>
 
