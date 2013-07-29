@@ -100,4 +100,8 @@
         </plugin>
     </plugins>
   </build>
+
+    <scm>
+        <connection>scm:git:https://github.com/finn-no/Notifications-Maven-Plugin.git</connection>
+  </scm>
 </project>
