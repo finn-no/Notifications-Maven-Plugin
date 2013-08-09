@@ -4,7 +4,7 @@
 
   <groupId>no.finntech.notifications-maven-plugin</groupId>
   <artifactId>notifications-maven-plugin</artifactId>
-  <version>0.2-SNAPSHOT</version>
+  <version>0.2</version>
   <packaging>maven-plugin</packaging>
   <name>notifications-maven-plugin</name>
 
@@ -107,6 +107,6 @@
 
     <scm>
         <connection>scm:git:https://github.com/finn-no/Notifications-Maven-Plugin.git</connection>
-    <tag>HEAD</tag>
+    <tag>notifications-maven-plugin-0.2</tag>
   </scm>
 </project>
