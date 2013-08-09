@@ -17,7 +17,6 @@ package no.finntech.maven.notifications;
 
 import com.github.hipchat.api.UserId;
 import com.github.hipchat.api.messages.Message;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -26,8 +25,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 /**
  * Goal which sends notifications to hipchat.
  */
-@Mojo(name = "hipchat", threadSafe = true)
-public final class HipChat extends AbstractMojo {
+@Mojo(name = "hipchat", aggregator = true, threadSafe = true)
+public final class HipChat extends AbstractNotificationMojo {
 
     /** comma-separated list of rooms to send notifications to. */
     @Parameter(property = "hipchat.rooms", required = false)
@@ -51,7 +50,7 @@ public final class HipChat extends AbstractMojo {
     private String hipchatToken;
 
     @Override
-    public void execute() throws MojoExecutionException {
+    protected void executeImpl() throws MojoExecutionException {
 
         if(null == hipchatToken || hipchatToken.isEmpty()) {
             throw new MojoExecutionException("\nhipchatToken isn't defined.");

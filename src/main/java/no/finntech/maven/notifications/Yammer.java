@@ -21,7 +21,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 
 import no.finntech.yammer.YammerClient;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -30,8 +29,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 /**
  * Goal which sends notifications to yammer.
  */
-@Mojo(name = "yammer", threadSafe = true)
-public final class Yammer extends AbstractMojo {
+@Mojo(name = "yammer", aggregator = true, threadSafe = true)
+public final class Yammer extends AbstractNotificationMojo {
 
     /** name or id of the yammer group */
     @Parameter(defaultValue = "", property = "yammer.groupId", required = false)
@@ -47,14 +46,14 @@ public final class Yammer extends AbstractMojo {
     private File yammerAnnouncement;
 
     /**
-     * The key of the application registered with Yammer. 
+     * The key of the application registered with Yammer.
      * See http://www.yammer.com/client_applications/new
      */
     @Parameter(property = "yammer.applicationKey", required = true)
     private String yammerApplicationKey;
 
     /**
-     * The secret of the application registered with Yammer. 
+     * The secret of the application registered with Yammer.
      * See http://www.yammer.com/client_applications/new
      */
     @Parameter(property = "yammer.applicationSecret", required = true)
@@ -74,8 +73,8 @@ public final class Yammer extends AbstractMojo {
     private String yammerAccessToken;
 
     @Override
-    public void execute() throws MojoExecutionException {
-        
+    protected void executeImpl() throws MojoExecutionException {
+
         if(!yammerAnnouncement.exists()) {
             throw new MojoExecutionException('\n' + yammerAnnouncement.getAbsolutePath() + " doesn't exist.");
         }

@@ -10,7 +10,7 @@ Yammer example
             <plugin>
               <groupId>no.finntech.notifications-maven-plugin</groupId>
               <artifactId>notifications-maven-plugin</artifactId>
-              <version>0.1-SNAPSHOT</version>
+              <version>0.2</version>
               <configuration>
                 <!-- name or id of the yammer group. -->
                 <yammerGroupId>Releases</yammerGroupId>
@@ -22,6 +22,8 @@ Yammer example
                 <yammerApplicationSecret>zyxwvutsrqponmlkjihgfedcba0123456789</yammerApplicationSecret>
                 <!-- The Yammer access token, related to the user, used in getting the access authentication. See http://www.yammer.com/api_oauth.html -->
                 <yammerAccessToken>fghijklmnopqrstufghi</yammerAccessToken>
+                <!-- don't fail the build if sending the notification fails -->
+                <failOnError>false</failOnError>
               </configuration>
             </plugin>
 
@@ -34,7 +36,7 @@ HipChat example
             <plugin>
               <groupId>no.finntech.notifications-maven-plugin</groupId>
               <artifactId>notifications-maven-plugin</artifactId>
-              <version>0.1-SNAPSHOT</version>
+              <version>0.2</version>
               <configuration>
                 <!-- comma-separated list of rooms to send notifications to -->
                 <hipchatRooms>Architecture,Releases</hipchatRooms>
