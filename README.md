@@ -10,7 +10,7 @@ Yammer example
             <plugin>
               <groupId>no.finntech.notifications-maven-plugin</groupId>
               <artifactId>notifications-maven-plugin</artifactId>
-              <version>0.2</version>
+              <version>0.3</version>
               <configuration>
                 <!-- name or id of the yammer group. -->
                 <yammerGroupId>Releases</yammerGroupId>
@@ -36,7 +36,7 @@ HipChat example
             <plugin>
               <groupId>no.finntech.notifications-maven-plugin</groupId>
               <artifactId>notifications-maven-plugin</artifactId>
-              <version>0.2</version>
+              <version>0.3</version>
               <configuration>
                 <!-- comma-separated list of rooms to send notifications to -->
                 <hipchatRooms>Architecture,Releases</hipchatRooms>
