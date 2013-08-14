@@ -25,7 +25,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 /**
  * Goal which sends notifications to hipchat.
  */
-@Mojo(name = "hipchat", aggregator = true, threadSafe = true)
+@Mojo(name = "hipchat", requiresOnline = true, threadSafe = true)
 public final class HipChat extends AbstractNotificationMojo {
 
     /** comma-separated list of rooms to send notifications to. */

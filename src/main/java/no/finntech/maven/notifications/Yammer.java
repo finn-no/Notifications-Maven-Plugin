@@ -29,7 +29,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 /**
  * Goal which sends notifications to yammer.
  */
-@Mojo(name = "yammer", aggregator = true, threadSafe = true)
+@Mojo(name = "yammer", requiresOnline = true, threadSafe = true)
 public final class Yammer extends AbstractNotificationMojo {
 
     /** name or id of the yammer group */
