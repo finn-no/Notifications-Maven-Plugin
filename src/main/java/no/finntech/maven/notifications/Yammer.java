@@ -66,11 +66,16 @@ public final class Yammer extends AbstractNotificationMojo {
     private String artifactId;
 
     /**
-     * The Yammer access code, needed for using the Yammer API.
-     * see https://developer.yammer.com/authentication/#a-testtoken
+     * The Yammer user's username, needed for authentication
      */
-    @Parameter(property = "yammer.accessToken", required = true)
-    private String yammerAccessToken;
+    @Parameter(property = "yammer.username", required = true)
+    private String yammerUsername;
+
+    /**
+     * The Yammer user's password, needed for authentication
+     */
+    @Parameter(property = "yammer.password", required = true)
+    private String yammerPassword;
 
     @Override
     protected void executeImpl() throws MojoExecutionException {
@@ -79,7 +84,12 @@ public final class Yammer extends AbstractNotificationMojo {
             throw new MojoExecutionException('\n' + yammerAnnouncement.getAbsolutePath() + " doesn't exist.");
         }
 
-        try (YammerClient client = new YammerClient(yammerApplicationKey, yammerApplicationSecret, yammerAccessToken)) {
+        try (YammerClient client = new YammerClient(
+                yammerApplicationKey,
+                yammerUsername,
+                yammerPassword,
+                yammerApplicationSecret)) {
+
             getLog().info("Posting announcement to yammer");
             client.sendMessage(
                     yammerGroupId,

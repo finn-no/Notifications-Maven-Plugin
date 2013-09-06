@@ -20,8 +20,10 @@ Yammer example
                 <yammerApplicationKey>abcdefghijklmnopqrstu</yammerApplicationKey>
                 <!-- The secret of the application registered with Yammer. See http://www.yammer.com/client_applications/new -->
                 <yammerApplicationSecret>zyxwvutsrqponmlkjihgfedcba0123456789</yammerApplicationSecret>
-                <!-- The Yammer access token, related to the user, used in getting the access authentication. See http://www.yammer.com/api_oauth.html -->
-                <yammerAccessToken>fghijklmnopqrstufghi</yammerAccessToken>
+                <!-- The Yammer user whom shall be authorised and posts shall come from -->
+                <yammerUsername>user@domain.com</yammerUsername>
+                <!-- password for yammerUsername -->
+                <yammerPassword>password</yammerPassword>
                 <!-- don't fail the build if sending the notification fails -->
                 <failOnError>false</failOnError>
               </configuration>
