@@ -48,5 +48,7 @@ HipChat example
                 <hipchatToken>abcdefghijklmnopqrstu</hipchatToken>
                 <!-- hipchat message to send -->
                 <hipchatMessage>${user.name} has released ${project.artifactId}-${project.version}</hipchatMessage>
+                <!-- The "announcement" file. Contents are sent as a hipchat message -->
+                <hipchatAnnouncement>${project.build.directory}/announcement/announcement.vm</hipchatAnnouncement>
               </configuration>
             </plugin>

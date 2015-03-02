@@ -15,6 +15,11 @@
  */
 package no.finntech.maven.notifications;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+
 import com.github.hipchat.api.UserId;
 import com.github.hipchat.api.messages.Message;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -49,6 +54,17 @@ public final class HipChat extends AbstractNotificationMojo {
     @Parameter(property = "hipchat.token", required = true)
     private String hipchatToken;
 
+
+    /**
+     * The "announcement" file. Contents are sent as a yammer message.
+     */
+    @Parameter(
+            defaultValue = "${project.build.directory}/announcement/hipchat-announcement.vm",
+            property = "hipchat.announcement",
+            required = true)
+    private File hipchatAnnouncement;
+
+
     @Override
     protected void executeImpl() throws MojoExecutionException {
 
@@ -59,10 +75,22 @@ public final class HipChat extends AbstractNotificationMojo {
             throw new MojoExecutionException("\nhipchatMessage isn't defined.");
         }
 
+        if(!hipchatAnnouncement.exists()) {
+            throw new MojoExecutionException('\n' + hipchatAnnouncement.getAbsolutePath() + " doesn't exist.");
+        }
+
+
+        final StringBuilder msg = new StringBuilder(hipchatMessage);
+        try {
+            msg.append("\n").append(new String(Files.readAllBytes(hipchatAnnouncement.toPath()), Charset.forName("UTF-8")));
+        } catch (IOException e) {
+            msg.append("failed to add release announcement. Due to: ").append(e.getMessage());
+        }
+
         com.github.hipchat.api.HipChat chat = new com.github.hipchat.api.HipChat(hipchatToken);
         for(String room : hipchatRooms.split(",")) {
             getLog().info("Posting announcement to hipchat (" + room + ')');
-            chat.getRoom(room).sendMessage(hipchatMessage, UserId.create(hipchatFrom, hipchatFrom), true, Message.Color.PURPLE);
+            chat.getRoom(room).sendMessage(msg.toString(), UserId.create(hipchatFrom, hipchatFrom), true, Message.Color.PURPLE);
         }
     }
 }
