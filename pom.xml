@@ -4,7 +4,7 @@
 
   <groupId>no.finntech.notifications-maven-plugin</groupId>
   <artifactId>notifications-maven-plugin</artifactId>
-  <version>0.8</version>
+  <version>0.9-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>notifications-maven-plugin</name>
 
@@ -109,4 +109,19 @@
         <connection>scm:git:https://github.com/finn-no/Notifications-Maven-Plugin.git</connection>
     <tag>HEAD</tag>
   </scm>
+
+  <repositories>
+    <!-- Need to find the parent "omnipom" pom. -->
+    <repository>
+      <id>finntech-release</id>
+      <name>Finntech maven releases</name>
+      <url>http://mavenproxy.finntech.no/finntech-release/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>
