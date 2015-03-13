@@ -59,11 +59,9 @@ public final class HipChat extends AbstractNotificationMojo {
      * The "announcement" file. Contents are sent as a yammer message.
      */
     @Parameter(
-            defaultValue = "${project.build.directory}/announcement/hipchat-announcement.vm",
             property = "hipchat.announcement",
-            required = true)
+            required = false)
     private File hipchatAnnouncement;
-
 
     @Override
     protected void executeImpl() throws MojoExecutionException {
@@ -75,22 +73,33 @@ public final class HipChat extends AbstractNotificationMojo {
             throw new MojoExecutionException("\nhipchatMessage isn't defined.");
         }
 
-        if(!hipchatAnnouncement.exists()) {
-            throw new MojoExecutionException('\n' + hipchatAnnouncement.getAbsolutePath() + " doesn't exist.");
-        }
-
-
         final StringBuilder msg = new StringBuilder(hipchatMessage);
-        try {
-            msg.append("\n").append(new String(Files.readAllBytes(hipchatAnnouncement.toPath()), Charset.forName("UTF-8")));
-        } catch (IOException e) {
-            msg.append("failed to add release announcement. Due to: ").append(e.getMessage());
-        }
+        addAnnouncementFileIfSet(msg);
 
         com.github.hipchat.api.HipChat chat = new com.github.hipchat.api.HipChat(hipchatToken);
         for(String room : hipchatRooms.split(",")) {
             getLog().info("Posting announcement to hipchat (" + room + ')');
             chat.getRoom(room).sendMessage(msg.toString(), UserId.create(hipchatFrom, hipchatFrom), true, Message.Color.PURPLE);
         }
+    }
+
+    void addAnnouncementFileIfSet(StringBuilder msg) throws MojoExecutionException {
+
+        if (hipchatAnnouncement != null) {
+            if (!hipchatAnnouncement.exists()) {
+                throw new MojoExecutionException('\n' + hipchatAnnouncement.getAbsolutePath() + " doesn't exist.");
+            }
+            try {
+                msg.append("\n").append(new String(Files.readAllBytes(hipchatAnnouncement.toPath()), Charset
+                    .forName("UTF-8")));
+            } catch (IOException e) {
+                msg.append("failed to add release announcement. Due to: ").append(e.getMessage());
+            }
+        }
+    }
+
+    void setHipchatAnnouncement(File hipchatAnnouncement) {
+
+        this.hipchatAnnouncement = hipchatAnnouncement;
     }
 }
