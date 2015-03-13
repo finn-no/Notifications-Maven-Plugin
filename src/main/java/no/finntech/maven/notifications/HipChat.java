@@ -59,7 +59,6 @@ public final class HipChat extends AbstractNotificationMojo {
      * The "announcement" file. Contents are sent as a yammer message.
      */
     @Parameter(
-            defaultValue = "${project.build.directory}/announcement/hipchat-announcement.vm",
             property = "hipchat.announcement",
             required = false)
     private File hipchatAnnouncement;
