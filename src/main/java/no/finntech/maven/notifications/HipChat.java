@@ -83,7 +83,7 @@ public final class HipChat extends AbstractNotificationMojo {
                 msg.append("failed to add release announcement. Due to: ").append(e.getMessage());
             }
         }
-        
+
         com.github.hipchat.api.HipChat chat = new com.github.hipchat.api.HipChat(hipchatToken);
         for(String room : hipchatRooms.split(",")) {
             getLog().info("Posting announcement to hipchat (" + room + ')');
