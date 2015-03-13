@@ -75,18 +75,15 @@ public final class HipChat extends AbstractNotificationMojo {
             throw new MojoExecutionException("\nhipchatMessage isn't defined.");
         }
 
-        if(!hipchatAnnouncement.exists()) {
-            throw new MojoExecutionException('\n' + hipchatAnnouncement.getAbsolutePath() + " doesn't exist.");
-        }
-
-
         final StringBuilder msg = new StringBuilder(hipchatMessage);
-        try {
-            msg.append("\n").append(new String(Files.readAllBytes(hipchatAnnouncement.toPath()), Charset.forName("UTF-8")));
-        } catch (IOException e) {
-            msg.append("failed to add release announcement. Due to: ").append(e.getMessage());
+        if(hipchatAnnouncement.exists()) {
+            try {
+                msg.append("\n").append(new String(Files.readAllBytes(hipchatAnnouncement.toPath()), Charset.forName("UTF-8")));
+            } catch (IOException e) {
+                msg.append("failed to add release announcement. Due to: ").append(e.getMessage());
+            }
         }
-
+        
         com.github.hipchat.api.HipChat chat = new com.github.hipchat.api.HipChat(hipchatToken);
         for(String room : hipchatRooms.split(",")) {
             getLog().info("Posting announcement to hipchat (" + room + ')');
